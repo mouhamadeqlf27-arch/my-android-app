@@ -1,4 +1,4 @@
-name: CI
+name: Build APK
 
 on:
   push:
@@ -9,16 +9,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-    - name: Build with Buildozer
-      uses: ArtemSBulgakov/buildozer-action@v1
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        command: android debug
-        buildozer_version: master
+        python-version: '3.10'
 
-    - name: Upload APK
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+            python3-pip \
+            build-essential \
+            git \
+            python3-dev \
+            libffi-dev \
+            libssl-dev \
+            zlib1g-dev \
+            openjdk-17-jdk \
+            autoconf \
+            libtool \
+            pkg-config \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libtinfo5 \
+            unzip \
+            zip
+
+    - name: Install Buildozer and Cython
+      run: |
+        pip install --upgrade pip
+        pip install cython==0.29.36 buildozer
+
+    - name: Build APK with Buildozer
+      run: |
+        buildozer -v android debug
+
+    - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: package
+        name: my-android-app
         path: bin/*.apk
