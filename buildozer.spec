@@ -1,14 +1,36 @@
 [app]
+
+# (str) Title of your application
 title = Spotify Ad-Cleaner
+
+# (str) Package name
 package.name = spotifyadcleaner
+
+# (str) Package domain (needed for android packaging)
 package.domain = org.adcleaner
+
+# (list) Source files to include (let it empty to include all files)
 source.include_exts = py,png,jpg,kv,atlas
-source.main = main.py
+
+# (str) Directory where the source files are located
+source.dir = .
+
+# (str) Application versioning
 version = 1.0
+
+# (list) Application requirements
 requirements = python3,kivy,pillow
-android.permissions = INTERNET,ACCESS_NETWORK_STATE
+
+# (list) Permissions
+android.permissions = INTERNET
+
+# (str) Supported orientations
 orientation = portrait
 
 [buildozer]
+
+# (int) Log level (0 = error only, 1 = info, 2 = debug)
 log_level = 2
+
+# (int) Display warning if buildozer is run as root (0 = False, 1 = True)
 warn_on_root = 1
