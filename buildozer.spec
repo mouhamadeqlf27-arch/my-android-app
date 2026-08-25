@@ -29,7 +29,7 @@ orientation = portrait
 
 # --- إعدادات الإصدارات لتجاوز مشكلة التراخيص و Aidl ---
 android.api = 31
-android.min_api = 21
+android.min_api = 24
 android.sdk = 30
 android.ndk = 23b
 
