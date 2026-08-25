@@ -27,6 +27,12 @@ android.permissions = INTERNET
 # (str) Supported orientations
 orientation = portrait
 
+# --- إعدادات الإصدارات لتجاوز مشكلة التراخيص و Aidl ---
+android.api = 31
+android.min_api = 21
+android.sdk = 30
+android.ndk = 23b
+
 [buildozer]
 
 # (int) Log level (0 = error only, 1 = info, 2 = debug)
