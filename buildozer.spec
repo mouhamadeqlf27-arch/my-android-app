@@ -32,6 +32,7 @@ android.api = 31
 android.min_api = 24
 android.sdk = 30
 android.ndk = 23b
+android.build_tools_version = 30.0.3
 
 [buildozer]
 
