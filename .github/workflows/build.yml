@@ -3,10 +3,12 @@ name: Build APK
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout Code
@@ -21,21 +23,21 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-            python3-pip \
-            build-essential \
-            git \
-            python3-dev \
-            libffi-dev \
-            libssl-dev \
-            zlib1g-dev \
-            openjdk-17-jdk \
-            autoconf \
-            libtool \
-            pkg-config \
-            libncurses5-dev \
-            libncursesw5-dev \
-            unzip \
-            zip
+          python3-pip \
+          build-essential \
+          git \
+          python3-dev \
+          libffi-dev \
+          libssl-dev \
+          zlib1g-dev \
+          openjdk-17-jdk \
+          autoconf \
+          libtool \
+          pkg-config \
+          libncurses5-dev \
+          libncursesw5-dev \
+          unzip \
+          zip
 
     - name: Install Buildozer and Cython
       run: |
@@ -44,7 +46,11 @@ jobs:
 
     - name: Build APK with Buildozer
       run: |
-        echo y | buildozer -v android debug
+        export PATH=$PATH:~/.local/bin
+        mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+        echo -e "\n84831b4009ab4576f63403d6d03d154ee0d8d7cd" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+        echo -e "\n24333f8a43b682ff1375dfb3329f072fedf04946" >> ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+        buildozer -v android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
